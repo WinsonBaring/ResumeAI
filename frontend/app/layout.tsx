@@ -47,10 +47,7 @@ export default function RootLayout({
 }>) {
     return (
         <ClerkProvider afterSignOutUrl={'/'} signInForceRedirectUrl={'/home'}>
-            <html
-                lang="en"
-                className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-            >
+            <html lang="en" suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable} antialiased` }>
                 <body className="min-h-screen bg-background">
                     <ThemeProvider
                         attribute="class"

@@ -7,7 +7,8 @@ import LandingPage from '@/components/block/landing-page';
 const Home = () => {
     // Sidebar open state
     return (
-        <LandingPage/>
+        // <LandingPage/>
+        <div></div>
     );
 };
 
