@@ -19,8 +19,8 @@ const items = [
         icon: Home,
     },
     {
-        title: 'Resume',
-        url: 'resume',
+        title: 'Career',
+        url: 'career',
         icon: FileUser,
     },
     // {

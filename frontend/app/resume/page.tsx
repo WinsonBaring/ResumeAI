@@ -4,7 +4,7 @@ import { AppSidebar } from "@/components/block/app-sidebar"
 import { NavigationMenuDemo } from "@/components/block/navigation-menu";
 import { ModeToggle } from "@/components/block/theme-toggle";
 import HomeHeader from "@/components/block/home-header";
-import FileManager from "@/components/block/file-manager";
+// import FileManager from "@/components/block/file-manager";
 import { Collapsible, CollapsibleContent,CollapsibleTrigger } from "@/components/ui/collapsible";
 
 export default function ResumePage() {

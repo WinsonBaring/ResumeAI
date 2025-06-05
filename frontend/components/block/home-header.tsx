@@ -25,7 +25,7 @@ export default function HomeHeader () {
                 <div className="flex mx-auto px-4 sm:px-6 lg:px-8 flex h-16 items-center justify-between">
                     <div className="flex items-center space-x-2">
                         <SidebarTrigger/>
-                        <Separator/>
+                        {/* <Separator/> */}
                         {/* <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
                             <Rocket className="h-4 w-4 text-primary-foreground" />
                         </div> */}
