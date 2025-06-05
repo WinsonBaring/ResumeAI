@@ -39,8 +39,16 @@ export default function WorkExperience() {
                 setResult("Inserted successfully!");
                 setDescription("");
             }
-        } catch (err: any) {
-            setResult("Error: " + err.message);
+        } catch (error) {
+
+            let message
+            if (error instanceof Error) {
+
+                setResult("Error: " + error.message);
+                message = error.message
+            }
+            else message = String(error)
+            // we'll proceed, but let's report it
         } finally {
             setLoading(false);
         }
@@ -56,9 +64,8 @@ export default function WorkExperience() {
             </CardHeader>
             <CardContent>
                 <form onSubmit={handleInsert} className="flex flex-col gap-4">
-                  
+
                     <Textarea
-                        className="h-[20rem]"
                         value={description}
                         onChange={e => setDescription(e.target.value)}
                         required
