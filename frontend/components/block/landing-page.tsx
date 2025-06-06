@@ -8,6 +8,7 @@ import Link from "next/link"
 import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from "@clerk/clerk-react"
 import { motion } from 'framer-motion';
 import { ModeToggle } from "./theme-toggle"
+import {HOME_LINK} from "@/const/navigation"
 
 export default function LandingPage() {
     return (
@@ -78,10 +79,12 @@ export default function LandingPage() {
                             </Badge>
 
                             <div className="space-y-4 max-w-4xl mx-auto">
+                                <Link href={HOME_LINK}>
                                 <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
                                     Create Perfect Resumes with AI
                                     <span className="text-primary block">Land Your Dream Job</span>
                                 </h1>
+                                </Link>
                                 <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
                                     Create professional resumes effortlessly using AI. Transform your work experience into compelling
                                     career stories that impress employers.

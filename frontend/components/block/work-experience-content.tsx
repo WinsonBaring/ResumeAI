@@ -28,7 +28,7 @@ export default function WorkExperience() {
         setResult(null);
         try {
 
-            const token = await getToken({ template: "supabase" });
+            const token = await getToken({ template: "resumeai" });
             const supabase = await createClient(token!);
             const { error } = await supabase
                 .from("Job Description")

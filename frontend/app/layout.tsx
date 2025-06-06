@@ -15,7 +15,7 @@ import {
 } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/block/app-sidebar';
 import { Geist, Geist_Mono } from 'next/font/google';
-
+import ReactQueryProvider from "@/providers/ReactQueryProvider"
 import './globals.css';
 import { ThemeProvider } from '@/components/block/theme-provider';
 import { NavigationMenuDemo } from '@/components/block/navigation-menu';
@@ -51,6 +51,8 @@ export default function RootLayout({
             suppressHydrationWarning 
             className={`${geistSans.variable} ${geistMono.variable} antialiased` }>
                 <body className="min-h-screen bg-background">
+                <ReactQueryProvider>
+
                     <ThemeProvider
                         attribute="class"
                         defaultTheme="system"
@@ -61,6 +63,7 @@ export default function RootLayout({
                             <main className="flex-1">{children}</main>
                         </div>
                     </ThemeProvider>
+                </ReactQueryProvider>
                 </body>
             </html>
         </ClerkProvider>

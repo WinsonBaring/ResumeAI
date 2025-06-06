@@ -1,4 +1,4 @@
-// 'use client'
+'use client'
 import {
     Card,
     CardAction,
@@ -9,6 +9,7 @@ import {
     CardTitle,
 
 } from "@/components/ui/card"
+import { useQuery } from '@tanstack/react-query'
 import { Button } from "@/components/ui/button"
 import {
     DropdownMenu,
@@ -19,41 +20,34 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { createClient } from '@/utils/supabase/client';
+import CreateJobDescription from "./create-job-description";
+import useJobDescription from "@/hooks/use-job-description";
 
 
-export async function JobDescriptionHero() {
-    const supabase = await createClient();
-    const { data} = await supabase.from("Job Description").select();
+export function JobDescriptionHero() {
+    const info = useJobDescription();
+    
+
     // return <pre>{JSON.stringify(instruments, null, 2)}</pre>
+
 
     return (
         <Card>
-            <pre>
-                {JSON.stringify(data,null,2)}
-            </pre>
-            {/* <CardHeader>
+            {/* {info.} */}
+            <CardHeader>
                 <CardTitle>Card Title</CardTitle>
                 <CardDescription>Card Description</CardDescription>
                 <CardAction>Card Action</CardAction>
-            </CardHeader> */}
+            </CardHeader>
+            <CreateJobDescription/>
             <CardContent>
-
-                <DropdownMenu>
-                    <DropdownMenuTrigger>
-                        Version
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent>
-                        <DropdownMenuLabel>V10</DropdownMenuLabel>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem>V1</DropdownMenuItem>
-                        <DropdownMenuItem>V2</DropdownMenuItem>
-                        <DropdownMenuItem>V3</DropdownMenuItem>
-                        <DropdownMenuItem>V4</DropdownMenuItem>
-                        <DropdownMenuItem>V5</DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
-
-
+                {/* {data?.map((job)=>{
+                    return(
+                        <div>
+                            {JSON.stringify(job,null,2)}
+                        </div>
+                    )
+                })} */}
 
             </CardContent>
             <CardFooter>
