@@ -2,14 +2,14 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { ArrowRight, CheckCircle, Star, Zap, Shield, Users, Rocket, Globe, Heart, Menu } from "lucide-react"
+import { ArrowRight, CheckCircle, Star, Zap, Shield, Users, Globe, Heart, Menu, FileText } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from "@clerk/clerk-react"
+import { motion } from 'framer-motion';
 import { ModeToggle } from "./theme-toggle"
 
 export default function LandingPage() {
-
     return (
         <div className="flex flex-col min-h-screen">
             {/* Header */}
@@ -17,17 +17,14 @@ export default function LandingPage() {
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex h-16 items-center justify-between">
                     <div className="flex items-center space-x-2">
                         <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-                            <Rocket className="h-4 w-4 text-primary-foreground" />
+                            <FileText className="h-4 w-4 text-primary-foreground" />
                         </div>
                         <span className="text-xl font-bold">
-                            <Link href={'/home'}>
-                                ProjectHub
-                            </Link>
+                            <Link href={"/home"}>Resume AI</Link>
                         </span>
                     </div>
 
                     <nav className="hidden md:flex items-center space-x-6">
-
                         <Link href="#features" className="text-sm font-medium hover:text-primary transition-colors">
                             Features
                         </Link>
@@ -57,7 +54,7 @@ export default function LandingPage() {
                             <UserButton
                                 appearance={{
                                     elements: {
-                                        avatarBox: 'ring-2 ring-blue-500',
+                                        avatarBox: "ring-2 ring-blue-500",
                                     },
                                 }}
                             />
@@ -71,34 +68,33 @@ export default function LandingPage() {
             </header>
 
             <main className="flex-1">
-             
                 {/* Hero Section */}
                 <section className="relative py-20 md:py-32 lg:py-40">
                     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex flex-col items-center text-center space-y-8">
                             <Badge variant="secondary" className="px-4 py-2">
                                 <Zap className="h-3 w-3 mr-2" />
-                                New: Advanced Features Available
+                                New: AI-Powered Resume Generation
                             </Badge>
 
                             <div className="space-y-4 max-w-4xl mx-auto">
                                 <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
-                                    Build Amazing Projects
-                                    <span className="text-primary block">Faster Than Ever</span>
+                                    Create Perfect Resumes with AI
+                                    <span className="text-primary block">Land Your Dream Job</span>
                                 </h1>
                                 <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                                    The complete platform to bring your ideas to life. From concept to deployment, we provide everything
-                                    you need to create exceptional digital experiences.
+                                    Create professional resumes effortlessly using AI. Transform your work experience into compelling
+                                    career stories that impress employers.
                                 </p>
                             </div>
 
                             <div className="flex flex-col sm:flex-row gap-4 w-full max-w-md mx-auto">
                                 <Button size="lg" className="flex-1">
-                                    Start Building
+                                    Create My Resume
                                     <ArrowRight className="ml-2 h-4 w-4" />
                                 </Button>
                                 <Button variant="outline" size="lg" className="flex-1">
-                                    Watch Demo
+                                    See How It Works
                                 </Button>
                             </div>
 
@@ -123,13 +119,20 @@ export default function LandingPage() {
                     <div className="container mx-auto px-4 sm:px-6 lg:px-8 mt-16">
                         <div className="relative max-w-5xl mx-auto">
                             <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-purple-600/20 rounded-2xl blur-3xl" />
-                            <Image
-                                src="/placeholder.svg?height=600&width=1200"
-                                alt="Platform Dashboard"
-                                width={1200}
-                                height={600}
-                                className="relative rounded-2xl border shadow-2xl w-full h-auto"
-                            />
+                            <motion.div
+                                initial={{ opacity: 0, y: 50 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
+                            >
+                                <Image
+                                    src="/assets/Black Purple Modern AI Chatbot Development Facebook Cover (1).png"
+                                    alt="Resume AI Dashboard"
+                                    width={1200}
+                                    height={600}
+                                    className="relative rounded-2xl border shadow-2xl w-full h-auto"
+                                />
+                            </motion.div>
+
                         </div>
                     </div>
                 </section>
@@ -143,7 +146,7 @@ export default function LandingPage() {
                                 Everything you need to succeed
                             </h2>
                             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                                Powerful tools and features designed to help you build, deploy, and scale your projects with confidence.
+                                Powerful tools and features designed to help you create perfect resumes and land your dream job.
                             </p>
                         </div>
 
@@ -152,12 +155,12 @@ export default function LandingPage() {
                                 <CardContent className="p-8">
                                     <div className="flex items-center space-x-4 mb-4">
                                         <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
-                                            <Rocket className="h-6 w-6 text-primary" />
+                                            <FileText className="h-6 w-6 text-primary" />
                                         </div>
-                                        <h3 className="text-xl font-semibold">Lightning Fast</h3>
+                                        <h3 className="text-xl font-semibold">AI-Powered Generation</h3>
                                     </div>
                                     <p className="text-muted-foreground">
-                                        Deploy your projects in seconds with our optimized infrastructure and global CDN network.
+                                        Transform your unstructured work experience into professional resumes using advanced AI
                                     </p>
                                 </CardContent>
                             </Card>
@@ -168,10 +171,10 @@ export default function LandingPage() {
                                         <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
                                             <Shield className="h-6 w-6 text-primary" />
                                         </div>
-                                        <h3 className="text-xl font-semibold">Secure by Default</h3>
+                                        <h3 className="text-xl font-semibold">Multiple Versions</h3>
                                     </div>
                                     <p className="text-muted-foreground">
-                                        Enterprise-grade security with automatic SSL, DDoS protection, and compliance certifications.
+                                        Create unlimited resume versions tailored for different job applications and industries
                                     </p>
                                 </CardContent>
                             </Card>
@@ -182,10 +185,10 @@ export default function LandingPage() {
                                         <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
                                             <Globe className="h-6 w-6 text-primary" />
                                         </div>
-                                        <h3 className="text-xl font-semibold">Global Scale</h3>
+                                        <h3 className="text-xl font-semibold">Smart Labeling</h3>
                                     </div>
                                     <p className="text-muted-foreground">
-                                        Reach users worldwide with our global edge network and automatic scaling capabilities.
+                                        Every section is labeled with source work experience for easy tracking and updates
                                     </p>
                                 </CardContent>
                             </Card>
@@ -196,10 +199,10 @@ export default function LandingPage() {
                                         <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
                                             <Users className="h-6 w-6 text-primary" />
                                         </div>
-                                        <h3 className="text-xl font-semibold">Team Collaboration</h3>
+                                        <h3 className="text-xl font-semibold">PDF Export</h3>
                                     </div>
                                     <p className="text-muted-foreground">
-                                        Work together seamlessly with built-in collaboration tools and real-time updates.
+                                        Generate professional PDF resumes ready for job applications and ATS systems
                                     </p>
                                 </CardContent>
                             </Card>
@@ -210,10 +213,10 @@ export default function LandingPage() {
                                         <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
                                             <Zap className="h-6 w-6 text-primary" />
                                         </div>
-                                        <h3 className="text-xl font-semibold">Developer Experience</h3>
+                                        <h3 className="text-xl font-semibold">Experience Management</h3>
                                     </div>
                                     <p className="text-muted-foreground">
-                                        Intuitive APIs, comprehensive documentation, and powerful CLI tools for developers.
+                                        Organize all your work experiences and job descriptions in one centralized platform
                                     </p>
                                 </CardContent>
                             </Card>
@@ -224,10 +227,10 @@ export default function LandingPage() {
                                         <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
                                             <Heart className="h-6 w-6 text-primary" />
                                         </div>
-                                        <h3 className="text-xl font-semibold">24/7 Support</h3>
+                                        <h3 className="text-xl font-semibold">Version Control</h3>
                                     </div>
                                     <p className="text-muted-foreground">
-                                        Get help when you need it with our dedicated support team and comprehensive resources.
+                                        Keep track of multiple versions of experiences and descriptions for different contexts
                                     </p>
                                 </CardContent>
                             </Card>
@@ -241,10 +244,10 @@ export default function LandingPage() {
                         <div className="text-center space-y-4 mb-16">
                             <Badge variant="outline">Testimonials</Badge>
                             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
-                                Loved by thousands of creators
+                                Loved by thousands of job seekers
                             </h2>
                             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                                See what our community has to say about their experience building with our platform.
+                                See what our community has to say about their experience using Resume AI.
                             </p>
                         </div>
 
@@ -257,17 +260,19 @@ export default function LandingPage() {
                                         ))}
                                     </div>
                                     <p className="text-muted-foreground mb-6">
-                                        "This platform completely transformed how we build and deploy our projects. The speed and
-                                        reliability are unmatched."
+                                        "Resume AI helped me land 3 interviews in just one week. The AI perfectly matched my experience to
+                                        job requirements."
                                     </p>
                                     <div className="flex items-center space-x-4">
+
                                         <Image
-                                            src="/placeholder.svg?height=40&width=40"
-                                            alt="Sarah Johnson"
+                                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1zwhySGCEBxRRFYIcQgvOLOpRGqrT3d7Qng&s"
+                                            alt="Michael Chen"
                                             width={40}
                                             height={40}
                                             className="rounded-full"
                                         />
+
                                         <div>
                                             <p className="font-semibold">Sarah Johnson</p>
                                             <p className="text-sm text-muted-foreground">Lead Developer</p>
@@ -284,12 +289,12 @@ export default function LandingPage() {
                                         ))}
                                     </div>
                                     <p className="text-muted-foreground mb-6">
-                                        "The developer experience is incredible. From setup to deployment, everything just works
-                                        seamlessly."
+                                        "I went from struggling with resume formatting to having multiple professional versions for
+                                        different roles."
                                     </p>
                                     <div className="flex items-center space-x-4">
                                         <Image
-                                            src="/placeholder.svg?height=40&width=40"
+                                            src="https://miro.medium.com/v2/resize:fit:1400/format:webp/0*X34fMZ-X7U0cEavh"
                                             alt="Michael Chen"
                                             width={40}
                                             height={40}
@@ -311,11 +316,12 @@ export default function LandingPage() {
                                         ))}
                                     </div>
                                     <p className="text-muted-foreground mb-6">
-                                        "We've saved countless hours and significantly improved our deployment process. Highly recommended!"
+                                        "The smart labeling feature helped me track which experiences worked best for different job
+                                        applications."
                                     </p>
                                     <div className="flex items-center space-x-4">
                                         <Image
-                                            src="/placeholder.svg?height=40&width=40"
+                                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRq49TZ7uBGmA3DVysJwhOKpBlCRucxLN3fdg&s"
                                             alt="Emily Rodriguez"
                                             width={40}
                                             height={40}
@@ -337,20 +343,20 @@ export default function LandingPage() {
                     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 text-center">
                             <div className="space-y-2">
-                                <p className="text-4xl font-bold">10M+</p>
-                                <p className="text-primary-foreground/80">Projects Deployed</p>
+                                <p className="text-4xl font-bold">50K+</p>
+                                <p className="text-primary-foreground/80">Resumes Generated</p>
                             </div>
                             <div className="space-y-2">
-                                <p className="text-4xl font-bold">500K+</p>
-                                <p className="text-primary-foreground/80">Active Users</p>
+                                <p className="text-4xl font-bold">10K+</p>
+                                <p className="text-primary-foreground/80">Job Offers Received</p>
                             </div>
                             <div className="space-y-2">
-                                <p className="text-4xl font-bold">99.9%</p>
-                                <p className="text-primary-foreground/80">Uptime</p>
+                                <p className="text-4xl font-bold">95%</p>
+                                <p className="text-primary-foreground/80">Interview Success Rate</p>
                             </div>
                             <div className="space-y-2">
                                 <p className="text-4xl font-bold">24/7</p>
-                                <p className="text-primary-foreground/80">Support</p>
+                                <p className="text-primary-foreground/80">AI Assistance</p>
                             </div>
                         </div>
                     </div>
@@ -362,16 +368,16 @@ export default function LandingPage() {
                         <div className="text-center space-y-8 max-w-3xl mx-auto">
                             <Badge variant="outline">Get Started Today</Badge>
                             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
-                                Ready to build something amazing?
+                                Ready to create your perfect resume?
                             </h2>
                             <p className="text-xl text-muted-foreground">
-                                Join thousands of creators who are already building the future with our platform. Start your journey
-                                today and see the difference.
+                                Join thousands of professionals who have already landed their dream jobs with AI-powered resumes. Start
+                                your journey today and see the difference.
                             </p>
 
                             <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
                                 <Button size="lg" className="flex-1">
-                                    Start Free Trial
+                                    Start Creating Resume
                                     <ArrowRight className="ml-2 h-4 w-4" />
                                 </Button>
                                 <Button variant="outline" size="lg" className="flex-1">
@@ -400,11 +406,11 @@ export default function LandingPage() {
                         <div className="space-y-4">
                             <div className="flex items-center space-x-2">
                                 <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-                                    <Rocket className="h-4 w-4 text-primary-foreground" />
+                                    <FileText className="h-4 w-4 text-primary-foreground" />
                                 </div>
-                                <span className="text-xl font-bold">ProjectHub</span>
+                                <span className="text-xl font-bold">Resume AI</span>
                             </div>
-                            <p className="text-muted-foreground">The complete platform for building amazing digital experiences.</p>
+                            <p className="text-muted-foreground">AI-powered resume creation for modern professionals.</p>
                         </div>
 
                         <div className="space-y-4">
@@ -464,7 +470,7 @@ export default function LandingPage() {
 
                     <div className="border-t mt-12 pt-8 flex flex-col sm:flex-row justify-between items-center">
                         <p className="text-sm text-muted-foreground">
-                            © {new Date().getFullYear()} ProjectHub. All rights reserved.
+                            © {new Date().getFullYear()} Resume AI. All rights reserved.
                         </p>
                         <div className="flex flex-wrap justify-center sm:justify-end gap-6 mt-4 sm:mt-0">
                             <Link href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
