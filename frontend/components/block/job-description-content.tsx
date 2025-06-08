@@ -1,4 +1,3 @@
-'use client'
 import {
     Card,
     CardAction,
@@ -19,40 +18,34 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { createClient } from '@/utils/supabase/client';
-import CreateJobDescription from "./create-job-description";
-import useJobDescription from "@/hooks/use-job-description";
+// import { createClient } from '@/utils/supabase/server';
 
+// import { createJobDescription } from "@/api/actions/createJobDescription";
+import CreateJobDescription from "@/components/block/create-job-description"
+import { JOB_DESCRIPTION } from "@/const/variables";
 
-export function JobDescriptionHero() {
-    const info = useJobDescription();
-    
+export async function JobDescriptionHero() {
 
-    // return <pre>{JSON.stringify(instruments, null, 2)}</pre>
+    // const supabase = await  createClient()
 
-
+    // const {data,error}= await  supabase.from(JOB_DESCRIPTION).select();
     return (
         <Card>
+            {/* {JSON.stringify(data)} */}
             {/* {info.} */}
-            <CardHeader>
+            {/* <CardHeader>
                 <CardTitle>Card Title</CardTitle>
                 <CardDescription>Card Description</CardDescription>
                 <CardAction>Card Action</CardAction>
-            </CardHeader>
+            </CardHeader> */}
             <CreateJobDescription/>
-            <CardContent>
-                {/* {data?.map((job)=>{
-                    return(
-                        <div>
-                            {JSON.stringify(job,null,2)}
-                        </div>
-                    )
-                })} */}
 
-            </CardContent>
-            <CardFooter>
+            {/* <CardContent>
+
+            </CardContent> */}
+            {/* <CardFooter>
                 <p>Card Footer</p>
-            </CardFooter>
+            </CardFooter> */}
         </Card>
     )
 }

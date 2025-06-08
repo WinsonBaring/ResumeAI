@@ -60,11 +60,14 @@ To automatically sync the `user_id` column in your tables with the authenticated
    -- Enable RLS
    alter table public."Job Description" enable row level security;
 
+   -- (using) controls the read / delete
+   -- (with check) controls the insert /update 
    -- Allow users to access only their own rows
    create policy "Users can access their own job descriptions"
      on public."Job Description"
      for all
      using (user_id = requesting_user_id());
+     with check (user_id = requesting_user_id())
    ```
 
 With this setup, your Supabase tables will automatically associate data with the authenticated user, and you can safely enforce per-user data access.
