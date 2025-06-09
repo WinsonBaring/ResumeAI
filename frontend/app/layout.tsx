@@ -13,7 +13,7 @@ import {
     SidebarRail,
     SidebarTrigger,
 } from '@/components/ui/sidebar';
-import { AppSidebar } from '@/components/block/app-sidebar';
+import { AppSidebar } from '@/app/home/app-sidebar';
 import { Geist, Geist_Mono } from 'next/font/google';
 import ReactQueryProvider from "@/providers/ReactQueryProvider"
 import './globals.css';

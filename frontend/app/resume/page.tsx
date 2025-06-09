@@ -1,6 +1,6 @@
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { Sidebar, User } from "lucide-react";
-import { AppSidebar } from "@/components/block/app-sidebar"
+import { AppSidebar } from "@/app/home/app-sidebar"
 import { NavigationMenuDemo } from "@/components/block/navigation-menu";
 import { ModeToggle } from "@/components/block/theme-toggle";
 import HomeHeader from "@/components/block/home-header";

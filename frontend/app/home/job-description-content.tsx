@@ -21,7 +21,7 @@ import {
 // import { createClient } from '@/utils/supabase/server';
 
 // import { createJobDescription } from "@/api/actions/createJobDescription";
-import CreateJobDescription from "@/components/block/create-job-description"
+import CreateJobDescription from "@/app/home/create-job-description"
 import { JOB_DESCRIPTION } from "@/const/variables";
 
 export async function JobDescriptionHero() {

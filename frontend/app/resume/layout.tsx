@@ -1,4 +1,4 @@
-import { AppSidebar } from "@/components/block/app-sidebar";
+import { AppSidebar } from "@/app/home/app-sidebar";
 import { SidebarProvider } from "@/components/ui/sidebar"
 
 export default function ResumeLayout({

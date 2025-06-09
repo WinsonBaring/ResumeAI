@@ -39,9 +39,9 @@ export const createJobDescription = async (prevState: any, formData: FormData) =
         };
     }
 
-    console.log("client-winson", client)
+    // console.log("client-winson", client)
     const result = await client.from(JOB_DESCRIPTION).insert([{ description: value.description }]);
-    console.log("This is the result: ", result)
+    // console.log("This is the result: ", result)
 
 
     // Process with valid value.description here
