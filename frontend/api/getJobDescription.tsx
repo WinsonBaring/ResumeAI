@@ -1,49 +1,60 @@
 import { JOB_DESCRIPTION } from '@/const/variables';
-import { Database } from '@/utils/supabase/database.types';
+import { Database } from '@/utils/supabase/database.types'; // Adjust path if necessary
 import { auth } from "@clerk/nextjs/server";
-// headers and cookies are not directly used here but their presence in a file
-// would also opt out of caching, and getToken() implicitly uses them.
-// import { cookies, headers } from 'next/headers';
 
 // Define the expected type for a single row from the job_description table
-// Adjust 'job_description' to match the actual key in your Database['public']['Tables']
-type JobDescriptionRow = Database['public']['Tables']['Job Description']['Row'];
+type JobDescriptionRow = Database['public']['Tables']['Job Description']['Row']; // Assuming 'Job Description' is the correct key
 
-export const getJobDescription= async () => {
-    // Getting the token on the server
-    // Note: auth() implicitly uses headers() or cookies()
-    const session = auth();
-    const token = await (await session).getToken();
+// Define the return type for your function
+type GetJobDescriptionResult = {
+    data: JobDescriptionRow[] | null;
+    error: string | null;
+};
 
-    // Check if token is available
-    if (!token) {
-        // Handle unauthenticated case, e.g., throw an error, return empty array, redirect
-        console.warn("No authentication token found for useJobDescription.");
-        return []; // Or throw new Error("Authentication required");
+export const getJobDescription = async (): Promise<GetJobDescriptionResult> => {
+    try {
+        const session = auth();
+        const token = await (await session).getToken();
+
+        // Check if token is available
+        if (!token) {
+            console.warn("No authentication token found for getJobDescription.");
+            // Return null data and an error message for unauthenticated case
+            return { data: null, error: "Authentication required." };
+        }
+
+        const response: Response = await fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/${JOB_DESCRIPTION}?select=*`, {
+            headers: {
+                "apikey": process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+                "Authorization": `Bearer ${token}`
+            },
+            // RECOMMENDED FOR USER-SPECIFIC DATA:
+            cache: "no-store"
+            // If the data is truly public/same for all users (no RLS based on token),
+            // and the token is a generic public/anon key that doesn't change query results,
+            // then you *could* use:
+            // cache: "force-cache",
+            // next: { revalidate: 3600 },
+            // But be very sure it's not user-specific.
+        });
+
+        // Check if the request was successful
+        if (!response.ok) {
+            const errorText = await response.text();
+            const errorMessage = `Failed to fetch job descriptions: ${response.status} - ${errorText}`;
+            console.error(errorMessage);
+            // Return null data and the error message
+            return { data: null, error: errorMessage };
+        }
+
+        // Await the JSON data and type it
+        const data: JobDescriptionRow[] = await response.json();
+        return { data, error: null };
+
+    } catch (e: any) {
+        // Catch any network errors or other unexpected errors
+        const errorMessage = `An unexpected error occurred: ${e.message || 'Unknown error'}`;
+        console.error(errorMessage, e);
+        return { data: null, error: errorMessage };
     }
-
-    // Correctly type the result of the fetch call as a standard Response object
-    const response: Response = await fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/${JOB_DESCRIPTION}?select=*`, {
-        headers: {
-            "apikey": process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-            "Authorization": `Bearer ${token}`
-        },
-        // IMPORTANT: For user-specific, authenticated data, use 'no-store'
-        // This ensures the data is always fresh for the requesting user
-        cache: "force-cache"
-        // revalidate and tags are not applicable with 'no-store'
-        // next: { revalidate: 3600 }, // Remove this line
-    });
-
-    // Check if the request was successful
-    if (!response.ok) {
-        const errorText = await response.text();
-        console.error(`Failed to fetch job descriptions: ${response.status} - ${errorText}`);
-        // Consider more specific error handling based on status codes (e.g., 401, 403)
-        throw new Error(`Failed to fetch job descriptions: ${response.statusText}`);
-    }
-
-    // Await the JSON data and type it to the expected array of JobDescriptionRow
-    const data: JobDescriptionRow[] = await response.json();
-    return data;
 };
