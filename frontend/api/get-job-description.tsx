@@ -29,12 +29,16 @@ export const getJobDescription = async (): Promise<GetJobDescriptionResult> => {
                 "Authorization": `Bearer ${token}`
             },
             // RECOMMENDED FOR USER-SPECIFIC DATA:
-            cache: "no-store"
+
+            cache: "force-cache",
             // If the data is truly public/same for all users (no RLS based on token),
             // and the token is a generic public/anon key that doesn't change query results,
             // then you *could* use:
             // cache: "force-cache",
-            // next: { revalidate: 3600 },
+            next: { 
+                revalidate: 3600, 
+                tags:[JOB_DESCRIPTION]
+            },
             // But be very sure it's not user-specific.
         });
 

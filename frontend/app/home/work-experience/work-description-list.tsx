@@ -1,10 +1,9 @@
-import { getJobDescription } from '@/api/getJobDescription';
+import { getWorkExperience} from '@/api/get-work-experience';
 // Assuming other imports are correct for your UI components
 // import { buttonVariants } from '@/components/ui/button';
 // import { cookies, headers } from 'next/headers';
 // import { revalidateButton } from "@/api/actions/revalidate";
 import React from 'react';
-import { ButtonTest } from './button-test'; // Assuming ButtonTest is in the same directory
 import {
     Table,
     TableCaption,
@@ -15,13 +14,13 @@ import {
     TableBody, // Ensure TableBody is imported if used
 } from "@/components/ui/table"; // Corrected import for TableBody if it's missing
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { EditJobDescription } from '@/app/home/edit-job-description';
+import { EditJobDescription } from '@/app/home/job-description/edit-job-description';
 
 
 // import { Separator } from "@/components/ui/separator"; // Not used in the provided snippet
 
-export const JobDescriptionList = async () => {
-    const { data, error } = await getJobDescription();
+export const WorkExperienceList = async () => {
+    const { data, error } = await getWorkExperience();
 
     if (error) {
         return <p className="text-red-500">Failed to load job descriptions: {error}</p>;
@@ -35,7 +34,7 @@ export const JobDescriptionList = async () => {
         // The parent div needs a defined height for the child's percentage height to work.
         // For demonstration, I'm setting a fixed height here.
         // In a real app, this parent might be a flex container or have a height from a layout.
-        <div className="space-y-4 h-[80vh] flex flex-col items-center justify-center border p-4"> {/* Added height/width for demonstration */}
+        <div className="space-y-4 h-[70vh] w-[96%] m-auto flex-col items-center justify-center border p-4 rounded-md"> {/* Added height/width for demonstration */}
             {/* The ScrollArea height and width are now percentage-based */}
             <ScrollArea className="h-[100%] w-[100%] rounded-md p-3 m-5">
 
@@ -50,13 +49,13 @@ export const JobDescriptionList = async () => {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {data.map((job) => ( // Renamed 'data' to 'job' for clarity in map
-                            <TableRow key={job.job_id}>
-                                <TableCell className="font-medium">{job.job_id}</TableCell>
-                                <TableCell>{job.description}</TableCell>
+                        {data.map((work) => ( // Renamed 'data' to 'job' for clarity in map
+                            <TableRow key={work.id  }>
+                                <TableCell className="font-medium">{work.id}</TableCell>
+                                <TableCell>{work.work_experience_unstructured}</TableCell>
 
                                 <TableCell>
-                                    <EditJobDescription/>
+                                    <EditJobDescription description={work.work_experience_unstructured!}/>
                                 </TableCell>
                                 {/* Add other TableCells if needed */}
                             </TableRow>
@@ -65,7 +64,6 @@ export const JobDescriptionList = async () => {
                 </Table>
             </ScrollArea>
             {/* Keeping ButtonTest outside the scroll area, adjust as needed */}
-            <ButtonTest />
             {/* You had JSON.stringify(result) outside, I'm putting data here, adjust as needed */}
             {/* <pre className="mt-4 p-2 bg-gray-100 rounded-md text-xs">{JSON.stringify(data, null, 2)}</pre> */}
         </div>

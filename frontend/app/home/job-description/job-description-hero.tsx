@@ -11,6 +11,11 @@ import {
 import { useQuery } from '@tanstack/react-query'
 import { Button } from "@/components/ui/button"
 import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover"
+import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
@@ -21,9 +26,10 @@ import {
 // import { createClient } from '@/utils/supabase/server';
 
 // import { createJobDescription } from "@/api/actions/createJobDescription";
-import CreateJobDescription from "@/app/home/create-job-description"
+import CreateJobDescription from "@/app/home/job-description/create-job-description"
 import { JOB_DESCRIPTION } from "@/const/variables";
-import {JobDescriptionList} from "@/app/home/job-description-list"
+import { JobDescriptionList } from "@/app/home/job-description/job-description-list"
+import { JobDescriptionHeader } from "./job-description-header"
 
 export async function JobDescriptionHero() {
 
@@ -39,8 +45,14 @@ export async function JobDescriptionHero() {
                 <CardDescription>Card Description</CardDescription>
                 <CardAction>Card Action</CardAction>
             </CardHeader> */}
-            <CreateJobDescription/>
-            <JobDescriptionList/>
+
+
+
+            
+
+            <JobDescriptionHeader/>
+
+            <JobDescriptionList />
             {/* <CardContent>
 
             </CardContent> */}

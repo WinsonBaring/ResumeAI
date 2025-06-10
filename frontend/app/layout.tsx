@@ -13,6 +13,7 @@ import {
     SidebarRail,
     SidebarTrigger,
 } from '@/components/ui/sidebar';
+import { Toaster } from "@/components/ui/sonner"
 import { AppSidebar } from '@/app/home/app-sidebar';
 import { Geist, Geist_Mono } from 'next/font/google';
 import ReactQueryProvider from "@/providers/ReactQueryProvider"
@@ -61,6 +62,7 @@ export default function RootLayout({
                     >
                         <div className="relative flex min-h-screen flex-col">
                             <main className="flex-1">{children}</main>
+                            <Toaster />
                         </div>
                     </ThemeProvider>
                 </ReactQueryProvider>
