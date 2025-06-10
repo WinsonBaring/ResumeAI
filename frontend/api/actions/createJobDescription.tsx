@@ -1,7 +1,7 @@
 'use server'
 
 
-import { revalidateTag } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { auth, } from '@clerk/nextjs/server'
 import Joi from 'joi';
 import { JOB_DESCRIPTION } from "@/const/variables";
@@ -25,7 +25,7 @@ const schema = Joi.object({
 
 const client = createServerSupabaseClient();
 export const createJobDescription = async (prevState: any, formData: FormData) => {
-    const { userId, redirectToSignIn, sessionId } = await auth()
+    const { userId, redirectToSignIn } = await auth()
 
     if (!userId) redirectToSignIn()
 
@@ -46,6 +46,8 @@ export const createJobDescription = async (prevState: any, formData: FormData) =
 
     // Process with valid value.description here
     // revalidateTag("job-description");
+    // revalidatePath('home')
+    revalidateTag(JOB_DESCRIPTION)
 
     return {
         result

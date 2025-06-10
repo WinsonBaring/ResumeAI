@@ -16,11 +16,7 @@ export default function HomePage() {
                 <HomeHero/>
             </div>
 
-            {/* <FileManager /> */}
 
-            {/* <footer className="mt-12 text-white/80 text-sm">
-                    &copy; {new Date().getFullYear()} Your Company. All rights reserved.
-                </footer> */}
         </main>
     );
 }

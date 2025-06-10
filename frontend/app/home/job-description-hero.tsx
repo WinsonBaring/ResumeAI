@@ -23,6 +23,7 @@ import {
 // import { createJobDescription } from "@/api/actions/createJobDescription";
 import CreateJobDescription from "@/app/home/create-job-description"
 import { JOB_DESCRIPTION } from "@/const/variables";
+import {JobDescriptionList} from "@/app/home/job-description-list"
 
 export async function JobDescriptionHero() {
 
@@ -39,7 +40,7 @@ export async function JobDescriptionHero() {
                 <CardAction>Card Action</CardAction>
             </CardHeader> */}
             <CreateJobDescription/>
-
+            <JobDescriptionList/>
             {/* <CardContent>
 
             </CardContent> */}

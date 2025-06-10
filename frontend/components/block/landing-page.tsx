@@ -35,9 +35,9 @@ export default function LandingPage() {
                         <Link href="#pricing" className="text-sm font-medium hover:text-primary transition-colors">
                             Pricing
                         </Link>
-                        <Link href="#contact" className="text-sm font-medium hover:text-primary transition-colors">
+                        {/* <Link href="#contact" className="text-sm font-medium hover:text-primary transition-colors">
                             Contact
-                        </Link>
+                        </Link> */}
                     </nav>
 
                     <div className="flex items-center space-x-4">

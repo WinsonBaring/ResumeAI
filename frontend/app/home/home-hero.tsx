@@ -1,6 +1,6 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { JOB_DESCRIPTION, TESTING_PAGE, WORK_EXPERIENCE } from "@/const/variables"
-import {JobDescriptionHero}from "@/app/home/job-description-content"
+import {JobDescriptionHero}from "@/app/home/job-description-hero"
 // import WorkExperience from "@/components/block/work-experience"
 import TestingPage from "./test-page"
 export default function HomeHero() {
