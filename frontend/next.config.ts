@@ -5,6 +5,11 @@ const nextConfig: NextConfig = {
     // If you are serving images from your /public/assets/images folder,
     // you generally DON'T need a special 'images' configuration here for local patterns.
     // next/image automatically handles static assets in `public`.
+    logging: {
+        fetches: {
+          fullUrl: true,
+        },
+      },
 
     // Example of a valid 'images' configuration (if you needed it for remote domains):
     images: {
