@@ -55,9 +55,6 @@ export default function HomeHeader () {
                             />
                         </SignedIn>
                         <ModeToggle />
-                        <Button variant="ghost" size="sm" className="md:hidden">
-                            <Menu className="h-4 w-4" />
-                        </Button>
                     </div>
                 </div>
             </header>

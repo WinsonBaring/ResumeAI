@@ -1,17 +1,17 @@
-import { JOB_DESCRIPTION, WORK_EXPERIENCE } from '@/const/variables';
+import { JOB_DESCRIPTION, RESUME } from '@/const/variables';
 import { Database } from '@/utils/supabase/database.types'; // Adjust path if necessary
 import { auth } from "@clerk/nextjs/server";
 
 // Define the expected type for a single row from the job_description table
-type WorkExperienceRow = Database['public']['Tables']['Work Experience']['Row']; // Assuming 'Job Description' is the correct key
+type ResumeRow = Database['public']['Tables']['Resume']['Row']; // Assuming 'Job Description' is the correct key
 
 // Define the return type for your function
-type GetWorkExperienceResult = {
-    data: WorkExperienceRow[] | null;
+type GetResumeResult = {
+    data: ResumeRow[] | null;
     error: string | null;
 };
 
-export const getWorkExperience= async (): Promise<GetWorkExperienceResult> => {
+export const getResume = async (): Promise<GetResumeResult> => {
     try {
         const session = auth();
         const token = await (await session).getToken();
@@ -19,12 +19,12 @@ export const getWorkExperience= async (): Promise<GetWorkExperienceResult> => {
 
         // Check if token is available
         if (!token) {
-            console.warn("No authentication token found for get-work-experience.");
+            console.warn("No authentication token found for get resume.");
             // Return null data and an error message for unauthenticated case
             return { data: null, error: "Authentication required." };
         }
 
-        const response: Response = await fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/${WORK_EXPERIENCE}?select=*`, {
+        const response: Response = await fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/${RESUME}?select=*`, {
             headers: {
                 "apikey": process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
                 "Authorization": `Bearer ${token}`
@@ -38,7 +38,7 @@ export const getWorkExperience= async (): Promise<GetWorkExperienceResult> => {
             // cache: "force-cache",
             next: { 
                 revalidate: 3600, 
-                tags:[WORK_EXPERIENCE]
+                tags:[RESUME]
             },
             // But be very sure it's not user-specific.
         });
@@ -46,14 +46,14 @@ export const getWorkExperience= async (): Promise<GetWorkExperienceResult> => {
         // Check if the request was successful
         if (!response.ok) {
             const errorText = await response.text();
-            const errorMessage = `Failed to fetch job descriptions: ${response.status} - ${errorText}`;
+            const errorMessage = `Failed to fetch resume: ${response.status} - ${errorText}`;
             console.error(errorMessage);
             // Return null data and the error message
             return { data: null, error: errorMessage };
         }
 
         // Await the JSON data and type it
-        const data: WorkExperienceRow[] = await response.json();
+        const data: ResumeRow[] = await response.json();
         return { data, error: null };
 
     } catch (e: any) {

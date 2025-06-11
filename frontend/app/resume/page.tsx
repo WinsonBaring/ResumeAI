@@ -11,9 +11,6 @@ export default function ResumePage() {
     return (
         <main className="w-full flex flex-col  ">
             <HomeHeader />
-            {/* <footer className="mt-12 text-white/80 text-sm">
-                    &copy; {new Date().getFullYear()} Your Company. All rights reserved.
-                </footer> */}
         </main>
     );
 }

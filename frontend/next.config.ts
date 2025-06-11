@@ -5,6 +5,15 @@ const nextConfig: NextConfig = {
     // If you are serving images from your /public/assets/images folder,
     // you generally DON'T need a special 'images' configuration here for local patterns.
     // next/image automatically handles static assets in `public`.
+    async redirects() {
+      return [
+        {
+          source: '/resume', // lower case
+          destination: '/Resume', // upper case
+          permanent: true, // or false
+        },
+      ];
+    },
     logging: {
         fetches: {
           fullUrl: true,

@@ -18,11 +18,11 @@ const items = [
         url: 'home',
         icon: Home,
     },
-    {
-        title: 'Career',
-        url: 'career',
-        icon: FileUser,
-    },
+    // {
+    //     title: 'Career',
+    //     url: 'career',
+    //     icon: FileUser,
+    // },
     // {
     //     title: 'Inbox',
     //     url: 'Inbox',
