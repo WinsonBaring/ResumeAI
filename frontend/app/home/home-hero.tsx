@@ -1,6 +1,6 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { JOB_DESCRIPTION, RESUME, WORK_EXPERIENCE } from "@/const/variables"
-import { JobDescriptionHero } from "@/app/home/job-description/job-description-hero"
+import { JobDescriptionHero } from "@/app/work-position/job-description-hero"
 import { WorkExperienceHero } from "@/app/home/work-experience/work-description-hero"
 import { ResumeHero } from "@/app/home/resume/resume-hero"
 import { Card } from "@/components/ui/card"

@@ -14,7 +14,7 @@ import {
     SidebarTrigger,
 } from '@/components/ui/sidebar';
 import { Toaster } from "@/components/ui/sonner"
-import { AppSidebar } from '@/app/home/app-sidebar';
+import { AppSidebar } from '@/app/app-sidebar';
 import { Geist, Geist_Mono } from 'next/font/google';
 import ReactQueryProvider from "@/providers/ReactQueryProvider"
 import './globals.css';

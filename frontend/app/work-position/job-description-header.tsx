@@ -25,7 +25,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 // import { createClient } from '@/utils/supabase/server';
-import CreateJobDescription from "@/app/home/job-description/create-job-description"
+import CreateJobDescription from "@/app/work-position/create-job-description"
 
 
 export const JobDescriptionHeader = () => {

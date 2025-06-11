@@ -26,7 +26,7 @@ import {
 // import { createClient } from '@/utils/supabase/server';
 
 // import { createJobDescription } from "@/api/actions/createJobDescription";
-import CreateJobDescription from "@/app/home/job-description/create-job-description"
+import CreateJobDescription from "@/app/work-position/create-job-description"
 import { JOB_DESCRIPTION } from "@/const/variables";
 import { WorkExperienceList} from "@/app/home/work-experience/work-description-list"
 import {WorkExperienceHeader} from "@/app/home/work-experience/work-description-header"

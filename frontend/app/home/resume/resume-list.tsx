@@ -1,9 +1,6 @@
 import {  getResume} from '@/api/get-resume';
 
-// Assuming other imports are correct for your UI components
-// import { buttonVariants } from '@/components/ui/button';
-// import { cookies, headers } from 'next/headers';
-// import { revalidateButton } from "@/api/actions/revalidate";
+
 import React from 'react';
 import {
     Table,
@@ -15,7 +12,7 @@ import {
     TableBody, // Ensure TableBody is imported if used
 } from "@/components/ui/table"; // Corrected import for TableBody if it's missing
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { EditJobDescription } from '@/app/home/job-description/edit-job-description';
+import { EditJobDescription } from '@/app/work-position/edit-job-description';
 
 
 // import { Separator } from "@/components/ui/separator"; // Not used in the provided snippet

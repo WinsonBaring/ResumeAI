@@ -1,7 +1,7 @@
 import { AppSidebar } from "@/app/app-sidebar";
 import { SidebarProvider } from "@/components/ui/sidebar"
 
-export default function HomeLayout({
+export default function JobDescriptionLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
