@@ -9,7 +9,8 @@ const compat = new FlatCompat({
     baseDirectory: __dirname,
 });
 
-const eslintConfig = [
+// Give your config array a name
+const config = [ // Renamed from eslintConfig
     ...compat.extends('next/core-web-vitals', 'next/typescript'),
     {
         rules: {
@@ -21,4 +22,5 @@ const eslintConfig = [
     },
 ];
 
-export default eslintConfig;
+// Export the named constant
+export default config; // Exporting the named 'config'

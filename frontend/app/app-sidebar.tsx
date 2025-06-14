@@ -89,6 +89,7 @@ export function AppSidebar() {
                                                 className='mb-6'
                                             >
                                                 <Link href={item.url}
+                                                    prefetch={true}
                                                     className='flex flex-row justify-center items-center gap-3'
                                                 >
                                                     <div

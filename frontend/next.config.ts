@@ -4,13 +4,14 @@ import type { NextConfig } from 'next';
 const nextConfig: NextConfig = {
     // If you are serving images from your /public/assets/images folder,
     // you generally DON'T need a special 'images' configuration here for local patterns.
+
     // next/image automatically handles static assets in `public`.
-    async redirects() {
+    rewrites: async () => {
       return [
         {
-          source: '/resume', // lower case
-          destination: '/Resume', // upper case
-          permanent: true, // or false
+          // 👇 matches all routes except /api
+          source: "/((?!api/).*)",
+          destination: "/static-app-shell",
         },
       ];
     },

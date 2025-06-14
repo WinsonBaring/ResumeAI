@@ -10,6 +10,7 @@ interface iSideBarOption {
 export const SideBarOption = (item: iSideBarOption) => {
     return (
         <Link href={item.url}
+            prefetch={true}
             className='flex py-6'
         >
             <div
