@@ -14,9 +14,6 @@ import {
     SidebarRail,
     SidebarTrigger,
 } from '@/components/ui/sidebar';
-import { Separator } from '@radix-ui/react-separator';
-import { NavigationMenuDemo } from '@/components/block/navigation-menu';
-import { Rocket, Link, Menu } from 'lucide-react';
 import { Button } from '../ui/button';
 
 export default function HomeHeader () {

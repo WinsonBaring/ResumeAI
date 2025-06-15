@@ -1,18 +1,17 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { JOB_DESCRIPTION, RESUME, WORK_EXPERIENCE } from "@/const/variables"
-import { JobDescriptionHero } from "@/app/work-position/job-description-hero"
-import { WorkExperienceHero } from "@/app/home/work-experience/work-description-hero"
-import { ResumeHero } from "@/app/home/resume/resume-hero"
 import { Card } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
 import { getResume } from "@/api/get-resume"
 // import CreateResume from "./resume/create-resume"
 import { ResumeHeader } from "@/app/home/resume/resume-header"
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import Link from "next/link"
 import { ResumeOpen } from "@/app/home/resume/resume-open"
+import { getQueryClient } from "@/providers/ReactQueryProvider"
+import { useQuery } from "@tanstack/react-query"
 
 export default async function HomeHero() {
+    // const { data:resume,isLoading } = useQuery({
+    //     queryKey: ['posts'],
+    //     queryFn: () => getResume(),
+    //   })
     const resume = await getResume();
     return (
         // <Tabs defaultValue={JOB_DESCRIPTION}>
@@ -53,7 +52,12 @@ export default async function HomeHero() {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {resume.data?.map((resume) => {
+                        {/* {isLoading && (
+                            <div>
+                                fetching data
+                            </div>
+                        )} */}
+                        {resume?.data?.map((resume) => {
                             return (
                                 <TableRow key={resume.id}>
 

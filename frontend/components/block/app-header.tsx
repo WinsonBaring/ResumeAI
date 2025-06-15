@@ -15,7 +15,6 @@ import {
 } from '@/components/ui/sidebar';
 import { Separator } from '@radix-ui/react-separator';
 import { NavigationMenuDemo } from '@/components/block/navigation-menu';
-import SignInPage from '@/components/parts/sign-in-button';
 import { Button } from '@/components/ui/button';
 import { Rocket, Menu } from 'lucide-react';
 import Link from 'next/link';

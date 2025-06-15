@@ -1,4 +1,4 @@
-import { Calendar, Home, AlignJustify, Briefcase, Play, ListCheck, FileUser, Inbox, Search, Settings } from 'lucide-react';
+import { Calendar, Home, AlignJustify, Briefcase, Play, ListCheck, FileUser, Inbox, Search, Settings, HomeIcon } from 'lucide-react';
 
 import {
     Sidebar,
@@ -12,13 +12,13 @@ import {
 } from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { SideBarOption } from '@/app/side-bar-option';
+import { SideBarOption } from '@/components/block/side-bar-option';
 
 // Menu items.
 const items = [
     {
         title: 'Generate Resume',
-        url: 'generate-resume',
+        url: 'resume-generation',
         icon: Play,
         important: true
     },
@@ -27,6 +27,12 @@ const items = [
         url: 'my-experience', // Changed for consistency
         description: "Manage Work History",
         icon: ListCheck,
+    },
+    {
+        title: 'home',
+        url: 'home',
+        description: "Job you are Applying",
+        icon: HomeIcon,
     },
     {
         title: 'Work Position',
@@ -89,7 +95,7 @@ export function AppSidebar() {
                                                 className='mb-6'
                                             >
                                                 <Link href={item.url}
-                                                    prefetch={true}
+                                                    // prefetch={true}
                                                     className='flex flex-row justify-center items-center gap-3'
                                                 >
                                                     <div

@@ -5,12 +5,11 @@ import { Button } from '@/components/ui/button';
 import HomePage from '@/app/home/page';
 import LandingPage from '@/components/block/landing-page';
 
-export default function Home (){
+export default function Home() {
 
     return (
         <div>
-
-        <LandingPage/>
+            <LandingPage />
         </div>
     );
 };

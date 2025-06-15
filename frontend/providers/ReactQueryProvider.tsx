@@ -1,3 +1,6 @@
+// Documentation
+//https://tanstack.com/query/latest/docs/framework/react/guides/advanced-ssr
+
 // In Next.js, this file would be called: app/providers.tsx
 'use client'
 

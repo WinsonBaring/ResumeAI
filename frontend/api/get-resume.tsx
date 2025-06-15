@@ -1,3 +1,4 @@
+'use server'
 import { JOB_DESCRIPTION, RESUME } from '@/const/variables';
 import { Database } from '@/utils/supabase/database.types'; // Adjust path if necessary
 import { auth } from "@clerk/nextjs/server";
@@ -36,6 +37,7 @@ export const getResume = async (): Promise<GetResumeResult> => {
             // and the token is a generic public/anon key that doesn't change query results,
             // then you *could* use:
             // cache: "force-cache",
+            
             next: { 
                 revalidate: 3600, 
                 tags:[RESUME]

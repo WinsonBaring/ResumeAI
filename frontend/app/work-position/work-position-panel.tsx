@@ -7,6 +7,8 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Plus, Search, Edit, Trash2, Copy, Clock, CheckCircle, Circle } from "lucide-react"
 import { WorkPositionModal } from "@/app/work-position/work-position-model"
+import SplitText from '@/components/ui/splittext'
+
 
 interface WorkPosition {
     id: string
@@ -86,9 +88,26 @@ export function WorkPositionPanel() {
     const handleDelete = (id: string) => {
         setJobDescriptions((prev) => prev.filter((job) => job.id !== id))
     }
+    const handleAnimationComplete = () => {
+        console.log('All letters have animated!');
+    };
 
     return (
         <div className="space-y-6">
+            <SplitText
+                text="Hello, GSAP!"
+                className="text-2xl font-semibold text-center"
+                delay={100}
+                duration={2}
+                ease="power3.out"
+                splitType="words"
+                from={{ opacity: 0, y: 40 }}
+                to={{ opacity: 1, y: 0 }}
+                threshold={0.1}
+                rootMargin="-100px"
+                textAlign="center"
+                onLetterAnimationComplete={handleAnimationComplete}
+            />
             <div className="flex items-center justify-between">
                 <div>
                     <h1 className="text-3xl font-bold text-gray-900">Job Descriptions</h1>

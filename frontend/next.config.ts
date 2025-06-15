@@ -5,6 +5,9 @@ const nextConfig: NextConfig = {
     // If you are serving images from your /public/assets/images folder,
     // you generally DON'T need a special 'images' configuration here for local patterns.
 
+    // experimental: {
+    //   ppr: 'incremental',
+    // },
     // next/image automatically handles static assets in `public`.
     rewrites: async () => {
       return [
