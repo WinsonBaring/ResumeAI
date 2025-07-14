@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
     // If you are serving images from your /public/assets/images folder,
     // you generally DON'T need a special 'images' configuration here for local patterns.
 
+
     // experimental: {
     //   ppr: 'incremental',
     // },
@@ -21,6 +22,7 @@ const nextConfig: NextConfig = {
     logging: {
         fetches: {
           fullUrl: true,
+          hmrRefreshes: true,
         },
       },
 

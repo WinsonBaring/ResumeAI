@@ -6,12 +6,14 @@ import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, Tabl
 import { ResumeOpen } from "@/app/home/resume/resume-open"
 import { getQueryClient } from "@/providers/ReactQueryProvider"
 import { useQuery } from "@tanstack/react-query"
+import { waitFor } from "@/utils/waitFor"
 
 export default async function HomeHero() {
     // const { data:resume,isLoading } = useQuery({
     //     queryKey: ['posts'],
     //     queryFn: () => getResume(),
     //   })
+    // await waitFor(2000);
     const resume = await getResume();
     return (
         // <Tabs defaultValue={JOB_DESCRIPTION}>

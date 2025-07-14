@@ -7,31 +7,45 @@ import Joi from 'joi';
 import { JOB_DESCRIPTION, RESUME, WORK_EXPERIENCE } from "@/const/variables";
 import { filterFormDataBySchema } from "@/utils/filterFormDataBySchema";
 import { createServerSupabaseClient } from "@/utils/supabase/server";
+import { z } from "zod"
+import { fromTheme } from "tailwind-merge";
+import { filterFormDataByZodSchema } from "@/utils/filterFormDataBySchemaZod";
 
-const schema = Joi.object({
+type ResumeSchema = {
+    title: string;
+    description: string;
+}
+
+const schema = Joi.object<ResumeSchema>({
     title: Joi.string()
-        // .email({ tlds: { allow: true } })
         .min(7)
-        // .max(3)
         .required()
         .messages({
-            // 'string.email': 'Invalid email format',
             'string.min': 'should be long enough',
-            // 'string.max': 'Email must be at at max of 3 characters',
-            // 'any.required': 'Email is required',
         }),
     description: Joi.string()
-        // .email({ tlds: { allow: true } })
         .min(7)
-        // .max(3)
         .required()
         .messages({
-            // 'string.email': 'Invalid email format',
             'string.min': 'should be long enough',
-            // 'string.max': 'Email must be at at max of 3 characters',
-            // 'any.required': 'Email is required',
         }),
 });
+const resumeSchema = z.object({
+    title: z.string()
+        .min(7, { message: 'title should be long enough' })
+        .refine(val => val.trim().length > 0, { message: 'title is required' }), // More explicit "required" for empty string
+    // Alternatively, if min(7) implies required and you just want "short" error for both:
+    // .min(7, { message: 'title should be long enough and is required' }),
+
+    description: z.string()
+        .min(7, { message: 'description should be long enough' })
+        .refine(val => val.trim().length > 0, { message: 'description is required' }),
+    // Alternatively:
+    // .min(7, { message: 'description should be long enough and is required' }),
+});
+
+// 2. Infer the TypeScript type from the Zod schema
+type ResumeSchemaa = z.infer<typeof resumeSchema>;
 
 
 const client = createServerSupabaseClient();
@@ -40,6 +54,7 @@ export const createResume = async (prevState: any, formData: FormData) => {
 
     if (!userId) redirectToSignIn()
 
+    const zodFilteredData = filterFormDataByZodSchema(formData,resumeSchema) 
     const filteredData = filterFormDataBySchema(formData, schema);
 
     const { error, value } = schema.validate(filteredData, { abortEarly: false });
@@ -51,7 +66,7 @@ export const createResume = async (prevState: any, formData: FormData) => {
     }
 
     // console.log("client-winson", client)
-    const result = await client.from(RESUME).insert([{ description: value.description, title: value.title}]);
+    const result = await client.from(RESUME).insert([{ ...value }]);
 
     console.log("This is the result: ", result)
 

@@ -1,4 +1,4 @@
-'use server'
+// 'use server'
 import { JOB_DESCRIPTION, RESUME } from '@/const/variables';
 import { Database } from '@/utils/supabase/database.types'; // Adjust path if necessary
 import { auth } from "@clerk/nextjs/server";
@@ -16,7 +16,7 @@ export const getResume = async (): Promise<GetResumeResult> => {
     try {
         const session = auth();
         const token = await (await session).getToken();
-        console.log("this is the token",token);
+        // console.log("this is the token",token);
 
         // Check if token is available
         if (!token) {
