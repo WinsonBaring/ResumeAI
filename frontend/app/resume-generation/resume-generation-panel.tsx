@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -8,7 +8,12 @@ import { Progress } from "@/components/ui/progress"
 import { Slider } from "@/components/ui/slider"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
-import { Zap, FileText, Download, Share, RefreshCw, Undo, Sparkles } from "lucide-react"
+import { Zap, FileText, Download, Share, RefreshCw, Undo, Sparkles, Save } from "lucide-react"
+import { PDFGenerator, ResumeData } from "@/utils/pdf-generator"
+import { StorageService } from "@/utils/supabase/storage"
+import { createClerkSupabaseClient } from "@/utils/supabase/client"
+import { useUser } from "@clerk/nextjs"
+import { toast } from "sonner"
 
 type GenerationState = "setup" | "generating" | "complete"
 
@@ -28,6 +33,7 @@ const mockExperiences = [
 ]
 
 export function ResumeGenerationPanel() {
+    const { user } = useUser()
     const [generationState, setGenerationState] = useState<GenerationState>("setup")
     const [selectedExperiences, setSelectedExperiences] = useState(mockExperiences)
     const [progress, setProgress] = useState(0)
@@ -38,13 +44,44 @@ export function ResumeGenerationPanel() {
         keywordEmphasis: 7,
         creativity: 5,
     })
+    const [isSaving, setIsSaving] = useState(false)
+    const resumePreviewRef = useRef<HTMLDivElement>(null)
 
     const activeJob = {
         title: "Senior Software Engineer",
         company: "Google",
     }
 
-    const handleGenerate = () => {
+    const generateResumeData = (): ResumeData => {
+        return {
+            name: "John Doe",
+            email: "john.doe@email.com",
+            phone: "(555) 123-4567",
+            summary: "Experienced Senior Software Engineer with 5+ years developing scalable web applications and leading cross-functional teams. Proven track record of improving system performance and mentoring junior developers.",
+            experience: [
+                {
+                    title: "Senior Software Engineer",
+                    company: "Acme Corp",
+                    period: "2022 - Present",
+                    achievements: [
+                        "Led team of 5 engineers developing microservices architecture",
+                        "Improved system performance by 40% through optimization",
+                        "Implemented CI/CD pipelines reducing deployment time by 60%"
+                    ]
+                }
+            ],
+            skills: ["JavaScript", "React", "Node.js", "Python", "AWS", "Docker", "Kubernetes"],
+            education: [
+                {
+                    degree: "Bachelor of Science in Computer Science",
+                    school: "University of Technology",
+                    year: "2018"
+                }
+            ]
+        }
+    }
+
+    const handleGenerate = async () => {
         setGenerationState("generating")
         setProgress(0)
 
@@ -59,6 +96,92 @@ export function ResumeGenerationPanel() {
                 return prev + 10
             })
         }, 500)
+    }
+
+    const handleSaveToSupabase = async () => {
+        if (!user) {
+            toast.error("Please sign in to save your resume")
+            return
+        }
+
+        setIsSaving(true)
+        try {
+            // Generate PDF from the preview
+            if (!resumePreviewRef.current) {
+                throw new Error("Resume preview not found")
+            }
+
+            const pdfBlob = await PDFGenerator.generatePDFFromHTML(
+                resumePreviewRef.current,
+                `${resumeName}.pdf`
+            )
+
+            // Create a resume record first
+            const supabase = createClerkSupabaseClient()
+            const { data: resumeData, error: resumeError } = await supabase
+                .from('Resume')
+                .insert({
+                    title: resumeName,
+                    description: "AI-generated resume",
+                    user_id: user.id
+                })
+                .select()
+                .single()
+
+            if (resumeError) {
+                throw new Error(`Failed to create resume: ${resumeError.message}`)
+            }
+
+            // Upload PDF to storage
+            const filename = `${resumeName.replace(/[^a-zA-Z0-9]/g, '_')}_v1.pdf`
+            const { url: pdfUrl } = await StorageService.uploadPDF(
+                pdfBlob,
+                filename,
+                user.id,
+                resumeData.id,
+                1
+            )
+
+            // Save resume version (we'll create a simple version without the complex table for now)
+            const { error: versionError } = await supabase
+                .from('Resume Content')
+                .insert({
+                    resume_id: resumeData.id,
+                    resume_content: JSON.stringify(generateResumeData()),
+                    user_id: user.id
+                })
+
+            if (versionError) {
+                throw new Error(`Failed to save resume version: ${versionError.message}`)
+            }
+
+            toast.success("Resume saved successfully!")
+            
+        } catch (error) {
+            console.error('Save error:', error)
+            toast.error(error instanceof Error ? error.message : "Failed to save resume")
+        } finally {
+            setIsSaving(false)
+        }
+    }
+
+    const handleDownloadPDF = async () => {
+        if (!resumePreviewRef.current) {
+            toast.error("Resume preview not found")
+            return
+        }
+
+        try {
+            const pdfBlob = await PDFGenerator.generatePDFFromHTML(
+                resumePreviewRef.current,
+                `${resumeName}.pdf`
+            )
+            PDFGenerator.downloadPDF(pdfBlob, `${resumeName}.pdf`)
+            toast.success("PDF downloaded successfully!")
+        } catch (error) {
+            console.error('Download error:', error)
+            toast.error("Failed to download PDF")
+        }
     }
 
     const handleExperienceToggle = (id: string) => {
@@ -100,7 +223,10 @@ export function ResumeGenerationPanel() {
                             <CardTitle>Resume Preview</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <div className="bg-white border rounded-lg p-8 min-h-[600px] shadow-sm">
+                            <div 
+                                ref={resumePreviewRef}
+                                className="bg-white border rounded-lg p-8 min-h-[600px] shadow-sm"
+                            >
                                 <div className="space-y-6">
                                     <div className="text-center border-b pb-4">
                                         <h1 className="text-2xl font-bold">John Doe</h1>
@@ -133,6 +259,24 @@ export function ResumeGenerationPanel() {
                                                     <li>• Implemented CI/CD pipelines reducing deployment time by 60%</li>
                                                 </ul>
                                             </div>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <h2 className="text-lg font-semibold mb-3">Skills</h2>
+                                        <p className="text-sm text-gray-700">
+                                            JavaScript, React, Node.js, Python, AWS, Docker, Kubernetes
+                                        </p>
+                                    </div>
+
+                                    <div>
+                                        <h2 className="text-lg font-semibold mb-3">Education</h2>
+                                        <div className="flex justify-between items-start">
+                                            <div>
+                                                <h3 className="font-medium">Bachelor of Science in Computer Science</h3>
+                                                <p className="text-sm text-gray-600">University of Technology</p>
+                                            </div>
+                                            <span className="text-sm text-gray-500">2018</span>
                                         </div>
                                     </div>
                                 </div>
@@ -198,9 +342,21 @@ export function ResumeGenerationPanel() {
                             <CardTitle>Actions</CardTitle>
                         </CardHeader>
                         <CardContent className="space-y-3">
-                            <Button className="w-full gap-2">
+                            <Button 
+                                className="w-full gap-2" 
+                                onClick={handleDownloadPDF}
+                            >
                                 <Download className="h-4 w-4" />
                                 Download PDF
+                            </Button>
+                            <Button 
+                                variant="outline" 
+                                className="w-full gap-2"
+                                onClick={handleSaveToSupabase}
+                                disabled={isSaving}
+                            >
+                                <Save className="h-4 w-4" />
+                                {isSaving ? "Saving..." : "Save to Cloud"}
                             </Button>
                             <Button variant="outline" className="w-full gap-2">
                                 <Download className="h-4 w-4" />
@@ -209,9 +365,6 @@ export function ResumeGenerationPanel() {
                             <Button variant="outline" className="w-full gap-2">
                                 <Share className="h-4 w-4" />
                                 Share Link
-                            </Button>
-                            <Button variant="secondary" className="w-full">
-                                Save as New Resume
                             </Button>
                         </CardContent>
                     </Card>

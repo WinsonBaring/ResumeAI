@@ -28,12 +28,7 @@ const items = [
         description: "Manage Work History",
         icon: ListCheck,
     },
-    {
-        title: 'home',
-        url: 'home',
-        description: "Job you are Applying",
-        icon: HomeIcon,
-    },
+
     {
         title: 'Work Position',
         url: 'work-position',
