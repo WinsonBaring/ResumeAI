@@ -28,7 +28,7 @@ export function EditJobDescription({description}:IEditJobDescription) {
             sideOffset={10}
             >
                 <form action={formAction}>
-                    <input type="text" defaultValue={description} name="description" id="" />
+                    <Input type="text" defaultValue={description} name="description" id="" />
                 </form>
                 <Button
                     type="submit"

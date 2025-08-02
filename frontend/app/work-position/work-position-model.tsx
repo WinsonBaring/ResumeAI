@@ -9,24 +9,18 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 
-interface JobDescription {
-    id: string
-    title: string
-    company: string
-    description: string
-    dateAdded: string
-    lastUsed: string
-    isActive: boolean
-}
+
 
 interface JobDescriptionModalProps {
     isOpen: boolean
     onClose: () => void
-    onSave: (job: JobDescription) => void
-    jobDescription: JobDescription | null
+    onSave: (job: any) => void
+    jobDescription: any
+    isLoading?: boolean
+    resumeId?: number
 }
 
-export function WorkPositionModal({ isOpen, onClose, onSave, jobDescription }: JobDescriptionModalProps) {
+export function WorkPositionModal({ isOpen, onClose, onSave, jobDescription, isLoading = false, resumeId }: JobDescriptionModalProps) {
     const [formData, setFormData] = useState({
         title: "",
         company: "",
@@ -52,11 +46,12 @@ export function WorkPositionModal({ isOpen, onClose, onSave, jobDescription }: J
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
 
-        const jobData: JobDescription = {
-            id: jobDescription?.id || "",
+        const jobData: any = {
+            job_id: jobDescription?.job_id || "",
             title: formData.title,
             company: formData.company,
             description: formData.description,
+            resume_id: resumeId || jobDescription?.resume_id || 1,
             dateAdded: jobDescription?.dateAdded || new Date().toISOString().split("T")[0],
             lastUsed: new Date().toISOString().split("T")[0],
             isActive: jobDescription?.isActive || false,
@@ -109,10 +104,12 @@ export function WorkPositionModal({ isOpen, onClose, onSave, jobDescription }: J
                     </div>
 
                     <div className="flex justify-end gap-3 pt-4">
-                        <Button type="button" variant="outline" onClick={onClose}>
+                        <Button type="button" variant="outline" onClick={onClose} disabled={isLoading}>
                             Cancel
                         </Button>
-                        <Button type="submit">{jobDescription ? "Update Job Description" : "Save Job Description"}</Button>
+                        <Button type="submit" disabled={isLoading}>
+                            {isLoading ? "Saving..." : (jobDescription ? "Update Job Description" : "Save Job Description")}
+                        </Button>
                     </div>
                 </form>
             </DialogContent>
