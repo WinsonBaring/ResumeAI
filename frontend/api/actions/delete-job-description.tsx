@@ -10,33 +10,16 @@ import { createServerSupabaseClient } from "@/utils/supabase/server";
 
 const schema = Joi.object({
 
-    description: Joi.string()
-        // .email({ tlds: { allow: true } })
-        .min(7)
-        // .max(3)
+    jobId: Joi.number()
         .required()
         .messages({
-            'string.min': 'Job description must be at at min 7 characters',
+            'number.base': 'Job ID must be a number',
         }),
-    title: Joi.string()
-        .min(3)
-        .required()
-        .messages({
-            'string.min': 'Title must be at at min 3 characters',
-        }),
-    company: Joi.string()
-        .min(3)
-        .required()
-        .messages({
-            'string.min': 'Company must be at at min 3 characters',
-        }),
-    isActive: Joi.boolean()
-        .required()
 });
 
 
 const client = createServerSupabaseClient();
-export const createJobDescription = async (prevState: any, formData: FormData) => {
+export const deleteJobDescription = async (prevState: any, formData: FormData) => {
     const { userId, redirectToSignIn } = await auth()
 
     if (!userId) redirectToSignIn()
@@ -56,7 +39,7 @@ export const createJobDescription = async (prevState: any, formData: FormData) =
     }
 
     // console.log("client-winson", client)
-    const result = await client.from(JOB_DESCRIPTION).insert([{ ...value }]);
+    const result = await client.from(JOB_DESCRIPTION).delete().eq('job_id', value.jobId);
 
 
     // Process with valid value.description here

@@ -1,6 +1,5 @@
 import HomeHeader from '@/components/block/home-header'
 import React, { Suspense } from 'react'
-import { JobDescriptionHero } from './job-description-hero'
 
 // import { ResumeGenerationPanel } from './resume-generation-panel'
 import { WorkPositionPanel } from "@/app/work-position/work-position-panel"

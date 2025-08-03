@@ -1,6 +1,6 @@
 
 import { getJobDescription } from "@/api/get-job-description"
-import { WorkPositionClient } from "./work-position-client"
+import {WorkPositionClient} from "@/app/work-position/work-position-client"
 import { auth } from "@clerk/nextjs/server"
 import { redirect } from "next/navigation"
 
@@ -23,7 +23,7 @@ export async function WorkPositionPanel() {
 
     return (
         <WorkPositionClient 
-            initialJobDescriptions={jobDescriptions || []} 
+            jobDescriptions={jobDescriptions || []} 
         />
     )
 }

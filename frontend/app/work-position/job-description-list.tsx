@@ -52,7 +52,7 @@ export const JobDescriptionList = async () => {
                                 <TableCell>{job.description}</TableCell>
 
                                 <TableCell>
-                                    <EditJobDescription description={job.description!}/>
+                                    <EditJobDescription job={job}/>
                                 </TableCell>
                                 {/* Add other TableCells if needed */}
                             </TableRow>
