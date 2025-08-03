@@ -52,7 +52,7 @@ export const ResumeList= async () => {
                                 <TableCell>{resume.description}</TableCell>
 
                                 <TableCell>
-                                    <EditJobDescription description={resume.description!}/>
+                                    {/* <EditJobDescription description={resume.description!}/> */}
                                 </TableCell>
                                 {/* Add other TableCells if needed */}
                             </TableRow>

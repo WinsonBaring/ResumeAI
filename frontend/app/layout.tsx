@@ -23,6 +23,7 @@ import { NavigationMenuDemo } from '@/components/block/navigation-menu';
 import { Separator } from '@/components/ui/separator';
 import LandingPage from '@/components/block/landing-page';
 import AppHeader from '@/components/block/app-header';
+import { ReactScan } from '@/providers/ReactScan';
 
 const geistSans = Geist({
     variable: '--font-geist-sans',
@@ -48,24 +49,25 @@ export default function RootLayout({
 }>) {
     return (
         <ClerkProvider afterSignOutUrl={'/'} signInForceRedirectUrl={'/home'}>
-            <html lang="en" 
-            suppressHydrationWarning 
-            className={`${geistSans.variable} ${geistMono.variable} antialiased` }>
+            <html lang="en"
+                suppressHydrationWarning
+                className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+                <ReactScan />
                 <body className="min-h-screen bg-background">
-                <ReactQueryProvider>
+                    <ReactQueryProvider>
 
-                    <ThemeProvider
-                        attribute="class"
-                        defaultTheme="system"
-                        enableSystem
-                        disableTransitionOnChange
-                    >
-                        <div className="relative flex min-h-screen flex-col">
-                            <main className="flex-1">{children}</main>
-                            <Toaster />
-                        </div>
-                    </ThemeProvider>
-                </ReactQueryProvider>
+                        <ThemeProvider
+                            attribute="class"
+                            defaultTheme="system"
+                            enableSystem
+                            disableTransitionOnChange
+                        >
+                            <div className="relative flex min-h-screen flex-col">
+                                <main className="flex-1">{children}</main>
+                                <Toaster />
+                            </div>
+                        </ThemeProvider>
+                    </ReactQueryProvider>
                 </body>
             </html>
         </ClerkProvider>

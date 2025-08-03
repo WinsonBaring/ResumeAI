@@ -52,7 +52,7 @@ export const WorkExperienceList = async () => {
                                 <TableCell>{work.work_experience_unstructured}</TableCell>
 
                                 <TableCell>
-                                    <EditJobDescription description={work.work_experience_unstructured!}/>
+                                    {/* <EditJobDescription description={work.work_experience_unstructured!}/> */}
                                 </TableCell>
                                 {/* Add other TableCells if needed */}
                             </TableRow>
